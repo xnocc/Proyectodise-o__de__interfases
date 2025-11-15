@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/index.html</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/controlador/CtrolEliminarUsuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/controlador/ControladorUsuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/modelo/Conexion.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/modelo/UsuarioDAO.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/Editar.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/cpanel.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/Interfaces/CRUD.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/modelo/LoginDAO.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/front.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/listarUsuarios.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/controlador/CtrolEditarUsuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/controlador/CerrarSesion.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/index.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/controlador/CtrolValidar.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/mensaje.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/src/java/modelo/Usuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/AdmonSistem/web/regUsuario.jsp</file>
+        </group>
+    </open-files>
+</project-private>
