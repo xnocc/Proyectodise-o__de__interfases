@@ -59,10 +59,11 @@ if (usuario == null) {
     <a href="ControladorUsuario?accion=dashboard">🏠 Dashboard</a>
     <a href="ControladorUsuario?accion=listar">👤 Gestión de Usuarios</a>
     <a href="ControladorUsuario?accion=perfil">📄 Mi Perfil</a>
-    <a href="ControladorUsuario?accion=finanzas">💰 Finanzas Personales</a>
+    <a href="CtrolFinanzas?accion=listar" target="_self">💰 Finanzas Personales</a>
 </div>
 
 <div class="content">
+    <%-- CLAVE: Aquí se incluye el JSP de contenido definido por el ControladorUsuario --%>
     <jsp:include page="${pagina}" />
 </div>
 

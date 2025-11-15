@@ -2,7 +2,9 @@ package modelo;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FinanzasDAO {
 
@@ -32,6 +34,9 @@ public class FinanzasDAO {
         } catch (SQLException e) {
             System.out.println("ERROR agregarFinanza(): " + e.getMessage());
             return 0;
+        } finally {
+             // Es buena práctica cerrar recursos
+             try { if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
         }
     }
 
@@ -56,6 +61,8 @@ public class FinanzasDAO {
         } catch (SQLException e) {
             System.out.println("ERROR actualizarFinanza(): " + e.getMessage());
             return 0;
+        } finally {
+             try { if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
         }
     }
 
@@ -75,6 +82,8 @@ public class FinanzasDAO {
         } catch (SQLException e) {
             System.out.println("ERROR eliminarFinanza(): " + e.getMessage());
             return 0;
+        } finally {
+             try { if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
         }
     }
 
@@ -106,6 +115,8 @@ public class FinanzasDAO {
 
         } catch (SQLException e) {
             System.out.println("ERROR listarFinanzasPorUsuario(): " + e.getMessage());
+        } finally {
+             try { if(rs != null) rs.close(); if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
         }
 
         return lista;
@@ -137,8 +148,55 @@ public class FinanzasDAO {
 
         } catch (SQLException e) {
             System.out.println("ERROR obtenerFinanzaPorId(): " + e.getMessage());
+        } finally {
+             try { if(rs != null) rs.close(); if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
         }
 
         return f;
+    }
+    
+    // ---------------------------------------------------------------------------------------
+    // 🟢 CORREGIDO: CALCULAR RESUMEN FINANCIERO PARA EL DASHBOARD
+    // ---------------------------------------------------------------------------------------
+    /**
+     * Calcula la suma total de Ingresos y Gastos para un usuario.
+     * @param idUsuario ID del usuario.
+     * @return Map<String, Double> con claves "Ingreso" y "Gasto". (Singular)
+     */
+    public Map<String, Double> calcularResumenFinanciero(int idUsuario) {
+        Map<String, Double> resumen = new HashMap<>();
+        // 1. INICIALIZAR CON CLAVES SINGULARES, que es lo que espera el JSP
+        resumen.put("Ingreso", 0.0);
+        resumen.put("Gasto", 0.0);
+        
+        // Consulta SQL para sumar montos agrupados por tipo ("Ingreso" o "Gasto")
+        String sql = "SELECT tipo, SUM(monto) AS total FROM finanzas WHERE id_usuario=? GROUP BY tipo";
+
+        try {
+            con = cn.crearConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String tipo = rs.getString("tipo");
+                double total = rs.getDouble("total");
+                
+                // 2. USAR LA LÓGICA DE ASIGNACIÓN ROBUSTA (IgnoreCase)
+                // Y ASIGNAR AL KEY SINGULAR que creamos en el map.
+                if (tipo.equalsIgnoreCase("Ingreso")) {
+                    resumen.put("Ingreso", total);
+                } else if (tipo.equalsIgnoreCase("Gasto")) {
+                    resumen.put("Gasto", total);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR calcularResumenFinanciero(): " + e.getMessage());
+        } finally {
+             try { if(rs != null) rs.close(); if(ps != null) ps.close(); if(con != null) con.close(); } catch (SQLException e) {}
+        }
+
+        return resumen;
     }
 }

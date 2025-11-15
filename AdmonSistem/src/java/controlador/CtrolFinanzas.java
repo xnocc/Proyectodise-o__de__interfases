@@ -35,28 +35,44 @@ public class CtrolFinanzas extends HttpServlet {
         switch (action) {
 
             case "listar":
+                // 1. Cargar la lista de finanzas en el Request
                 request.setAttribute("finanzas", dao.listarFinanzasPorUsuario(idUsuario));
-                request.getRequestDispatcher("finanzas.jsp").forward(request, response);
+                
+                // 2. Establecer el JSP de contenido a incluir en el layout
+                request.setAttribute("pagina", "finanzas.jsp"); 
+                
+                // 3. Cargar el layout principal (front.jsp)
+                request.getRequestDispatcher("front.jsp").forward(request, response);
                 break;
 
             case "nuevo":
-                request.getRequestDispatcher("agregarFinanza.jsp").forward(request, response);
+                // 1. Establecer la página del formulario
+                request.setAttribute("pagina", "agregarFinanza.jsp"); 
+                // 2. Cargar el layout principal
+                request.getRequestDispatcher("front.jsp").forward(request, response);
                 break;
 
             case "editar":
                 int idEdit = Integer.parseInt(request.getParameter("id"));
                 Finanza f = dao.obtenerFinanzaPorId(idEdit);
                 request.setAttribute("finanza", f);
-                request.getRequestDispatcher("editarFinanza.jsp").forward(request, response);
+                
+                // 1. Establecer la página del formulario de edición
+                request.setAttribute("pagina", "editarFinanza.jsp"); 
+                // 2. Cargar el layout principal
+                request.getRequestDispatcher("front.jsp").forward(request, response);
                 break;
 
             case "eliminar":
                 int idDel = Integer.parseInt(request.getParameter("id"));
                 dao.eliminarFinanza(idDel);
-                response.sendRedirect("CtrolFinanzas?accion=listar");
+                
+                // CORRECCIÓN: Después de eliminar, REDIRIGIMOS al LISTAR para recargar todo.
+                response.sendRedirect("CtrolFinanzas?accion=listar"); 
                 break;
 
             default:
+                // Redirigir al listar por defecto
                 response.sendRedirect("CtrolFinanzas?accion=listar");
         }
     }
@@ -67,14 +83,12 @@ public class CtrolFinanzas extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession sesion = request.getSession(false);
-
         if (sesion == null || sesion.getAttribute("idUsuario") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
-
         int idUsuario = (int) sesion.getAttribute("idUsuario");
-
+        
         String action = request.getParameter("accion");
         if (action == null) action = "";
 
@@ -103,7 +117,8 @@ public class CtrolFinanzas extends HttpServlet {
 
         dao.agregarFinanza(f);
 
-        response.sendRedirect("CtrolFinanzas?accion=listar");
+        // CLAVE: Redirige al doGet de "listar" para que cargue la lista y el layout.
+        response.sendRedirect("CtrolFinanzas?accion=listar"); 
     }
 
 
@@ -116,10 +131,12 @@ public class CtrolFinanzas extends HttpServlet {
         f.setMonto(Double.parseDouble(request.getParameter("monto")));
         f.setDescripcion(request.getParameter("descripcion"));
         f.setFecha(request.getParameter("fecha"));
+        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+        f.setIdUsuario(idUsuario);
 
         dao.actualizarFinanza(f);
 
-        response.sendRedirect("CtrolFinanzas?accion=listar");
+        // CLAVE: Redirige al doGet de "listar" para que cargue la lista y el layout.
+        response.sendRedirect("CtrolFinanzas?accion=listar"); 
     }
-
 }
