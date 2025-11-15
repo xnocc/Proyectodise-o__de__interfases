@@ -59,6 +59,7 @@ if (usuario == null) {
     <a href="ControladorUsuario?accion=dashboard">🏠 Dashboard</a>
     <a href="ControladorUsuario?accion=listar">👤 Gestión de Usuarios</a>
     <a href="ControladorUsuario?accion=perfil">📄 Mi Perfil</a>
+    <a href="ControladorUsuario?accion=finanzas">💰 Finanzas Personales</a>
 </div>
 
 <div class="content">

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
 
     private static final String USER = "root";
-    private static final String PASS = "xnocc"; // si tu root tiene contraseña, escríbela aquí
+    private static final String PASS = ""; // si tu root tiene contraseña, escríbela aquí
     private static final String SERVER = "localhost:3306";
     private static final String BD = "tienda";
 
